@@ -20,8 +20,8 @@ def get_wall_upload_url(group_id, access_token):
     }
     response = requests.get(url, params)
     response.raise_for_status()
-    check_response(response)
     response = response.json()
+    check_response(response)
     return response["response"]["upload_url"]
 
 
@@ -32,8 +32,9 @@ def upload_photo(wall_upload_url):
         }
         response = requests.post(wall_upload_url, files=files)
     response.raise_for_status()
+    response = response.json()
     check_response(response)
-    return response.json()
+    return response
 
 
 def save_wall_photos(group_id, access_token, server, photo, hash):
@@ -48,8 +49,8 @@ def save_wall_photos(group_id, access_token, server, photo, hash):
     url = f"https://api.vk.com/method/photos.saveWallPhoto"
     response = requests.post(url, params)
     response.raise_for_status()
-    check_response(response)
     response = response.json()
+    check_response(response)
     response = response["response"][0]
     return response
 
@@ -67,8 +68,8 @@ def post_comic(group_id, access_token, comment, photo_id, owner_id):
     url = f"https://api.vk.com/method/wall.post"
     response = requests.post(url, params)
     response.raise_for_status()
-    check_response(response)
     response = response.json()
+    check_response(response)
 
 
 def get_random_comic():
